@@ -19,3 +19,11 @@ p {
   justify-content: center;
   align-items: center;
 }
+
+#next-statement-btn,
+#prev-statement-btn {
+  &:hover {
+    opacity: 60%;
+    cursor: pointer;
+  }
+}
