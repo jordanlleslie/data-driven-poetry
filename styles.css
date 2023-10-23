@@ -1,0 +1,21 @@
+html {
+  font-family: sans-serif;
+}
+
+body,
+h1,
+p {
+  margin: 0;
+  padding: 0;
+}
+.title {
+  padding: 20px;
+  font-weight: normal;
+}
+
+.svg-container {
+  background-color: #d5d9d5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
