@@ -51,6 +51,9 @@ function updateTitle(title) {
 }
 
 function singleNumeracyChart(statement) {
+  const iconSize = 15;
+  const rowSize = 10;
+
   svg.selectAll(".discrimination-icon").remove();
   svg.select("#discrimination-statement").text(statement);
 
@@ -62,7 +65,6 @@ function singleNumeracyChart(statement) {
   if (!row[0]) throw Error("No matching statement...something went wrong");
   row = row[0];
 
-  console.log(row);
   for (key of ["All", "Low prestige", "High prestige"]) {
     value = parseInt(row[key]);
     // TODO: Adjust position for different categories so we can compare them
@@ -71,11 +73,11 @@ function singleNumeracyChart(statement) {
       chart
         .append("image")
         .attr("xlink:href", "/assets/images/Person.svg")
-        .attr("width", "15px")
+        .attr("width", `${iconSize}px`)
         .attr("class", "discrimination-icon")
         .style("fill", "red")
-        .attr("x", (i % 10) * 15)
-        .attr("y", Math.floor(i / 10) * 15);
+        .attr("x", (i % rowSize) * iconSize)
+        .attr("y", Math.floor(i / rowSize) * iconSize);
     }
   }
 }
@@ -90,7 +92,6 @@ function makeNumeracyChart() {
   const statements = discrimination_experiences.map(
     (entry) => entry["Experiences of discrimination"]
   );
-  console.log(statements);
   //   start with first statement
   let statementIndex = 0;
 
