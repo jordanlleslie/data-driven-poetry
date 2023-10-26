@@ -1,10 +1,12 @@
-let chart, chartWidth, chartHeight;
-let xScale, yScale;
+import Person from "/assets/images/Person.js";
 
-const svgWidth = 500;
+let chart, chartWidth, chartHeight;
+// let xScale, yScale;
+
+const svgWidth = 600;
 const svgHeight = 400;
 
-let discrimination_experiences;
+let discrimination_experiences, correction_reasons;
 
 let svg = d3.select("#svg");
 
@@ -12,6 +14,7 @@ async function loadData() {
   discrimination_experiences = await d3.csv(
     "/assets/data/discrimination_experiences.csv"
   );
+  correction_reasons = await d3.csv("/assets/data/correction_reasons.csv");
 }
 
 function initializeSVG() {
@@ -27,10 +30,13 @@ function initializeSVG() {
 
   chart = svg
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("id", "chart")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .attr("width", chartWidth)
+    .attr("height", chartHeight);
 
-  xScale = d3.scaleBand().domain([]).range([0, chartWidth]).padding(0.1);
-  yScale = d3.scaleLinear().domain([]).nice().range([chartHeight, 0]);
+  // xScale = d3.scaleBand().domain([]).range([0, chartWidth]).padding(0.1);
+  // yScale = d3.scaleLinear().domain([]).nice().range([chartHeight, 0]);
 
   // Add title
   svg
@@ -50,10 +56,16 @@ function updateTitle(title) {
   }
 }
 
-function singleNumeracyChart(statement) {
-  const iconSize = 15;
-  const rowSize = 10;
+/*
+NUMERACY CHART: EXPERIENCES OF DISCRIMINATION VS. LANGUAGE PRESTIGE
+*/
 
+function singleNumeracyChart(statement) {
+  const rowSize = 8;
+  const padding = 5;
+  const iconSize = chartWidth / (rowSize * 2);
+
+  // TODO: Add animation for transitions
   svg.selectAll(".discrimination-icon").remove();
   svg.select("#discrimination-statement").text(statement);
 
@@ -62,88 +74,235 @@ function singleNumeracyChart(statement) {
   );
 
   //  if filter returns no rows, something went wrong
-  if (!row[0]) throw Error("No matching statement...something went wrong");
+  if (!row[0]) {
+    e = Error("No matching statement...something went wrong");
+    console.error(e);
+  }
   row = row[0];
 
-  for (key of ["All", "Low prestige", "High prestige"]) {
-    value = parseInt(row[key]);
-    // TODO: Adjust position for different categories so we can compare them
-    // TODO: Figure out how to change fill color of SVG
-    for (i = 0; i < value; i++) {
-      chart
-        .append("image")
-        .attr("xlink:href", "/assets/images/Person.svg")
-        .attr("width", `${iconSize}px`)
+  const colors = {
+    "Low prestige": "#FFC107",
+    "High prestige": "#1E88E5",
+  };
+
+  let xPosition = 0;
+  for (let key of ["Low prestige", "High prestige"]) {
+    let value = parseInt(row[key]);
+    // group icons together
+    const category = chart
+      .append("g")
+      .attr("class", "numeracy-category")
+      .attr("width", rowSize * iconSize);
+
+    // add icons
+    for (let i = 0; i < value; i++) {
+      category
+        .append("svg")
         .attr("class", "discrimination-icon")
-        .style("fill", "red")
-        .attr("x", (i % rowSize) * iconSize)
-        .attr("y", Math.floor(i / rowSize) * iconSize);
+        .html(Person(colors[key], iconSize, padding))
+        .attr("x", xPosition + (i % rowSize) * iconSize)
+        .attr("y", chartHeight - Math.floor(i / rowSize + 2) * iconSize);
     }
+    // Add hidden label
+    category
+      .append("text")
+      .attr("class", "label")
+      .text(value)
+      .attr("y", chartHeight - padding * 3)
+      .attr("x", xPosition)
+      .style("visibility", "hidden")
+      .style("fill", colors[key]);
+    // Show label when hovering
+    // TODO: fix this to only show the corresponding label
+    category
+      .on("mouseover", () => {
+        category.selectAll(".label").style("visibility", "visible");
+      })
+      .on("mouseout", () => {
+        category.selectAll(".label").style("visibility", "hidden");
+      });
+    xPosition += rowSize * iconSize;
+  }
+}
+//   start with first statement
+let statementIndex;
+let statements;
+
+function interactiveNumeracyChart() {
+  // implement interactive element (statement with forward and backward buttons)
+
+  // updateTitle("Experiences of Linguistic Discrimination in Germany");
+
+  const buttonSize = 32;
+  const padding = buttonSize / 4;
+  // get discrimination statements from data
+  statementIndex = 0;
+  statements = discrimination_experiences.map(
+    (entry) => entry["Experiences of discrimination"]
+  );
+  svg
+    .append("g")
+    .attr("id", "statement-selector")
+    .attr("transform", `translate(0, ${padding})`);
+
+  // statement
+  const statementSelector = svg.select("#statement-selector");
+  statementSelector
+    .append("foreignObject")
+    .attr("id", "discrimination-statement")
+    .attr("width", svgWidth - buttonSize * 4)
+    .attr("height", 100)
+    .attr("x", buttonSize * 2)
+    .attr("y", padding)
+    .append("xhtml:body")
+    .html(`<p>${statements[statementIndex]}</p>`);
+
+  // prev, next buttons
+  statementSelector
+    .append("image")
+    .attr("xlink:href", "/assets/images/Right.svg")
+    .attr("width", buttonSize)
+    .attr("id", "next-statement-btn")
+    .attr("x", svgWidth - buttonSize - padding);
+  // Click listener
+  // .on("click", () => {
+  //   if (statementIndex < statements.length - 1) {
+  //     statementIndex++;
+  //     d3.selectAll(".label").remove();
+  //     singleNumeracyChart(statements[statementIndex]);
+  //     updateButtons(statementIndex, statements);
+  //   }
+  // });
+  statementSelector
+    .append("image")
+    .attr("xlink:href", "/assets/images/Left.svg")
+    .attr("width", buttonSize)
+    .attr("id", "prev-statement-btn")
+    .attr("x", padding);
+  // Click listener
+  // .on("click", () => {
+  //   if (statementIndex > 0) {
+  //     statementIndex--;
+  //     d3.selectAll(".label").remove();
+  //     singleNumeracyChart(statements[statementIndex]);
+  //     updateButtons(statementIndex, statements);
+  //   }
+  // });
+
+  // implement chart
+  singleNumeracyChart(statements[statementIndex]);
+  chart
+    .append("text")
+    .text("low prestige language")
+    .attr("y", chartHeight)
+    .attr("x", chartWidth / 4)
+    .attr("text-anchor", "middle");
+  chart
+    .append("text")
+    .text("high prestige language")
+    .attr("y", chartHeight)
+    .attr("x", (3 * chartWidth) / 4)
+    .attr("text-anchor", "middle");
+
+  updateButtons(statementIndex, statements);
+}
+
+// Helper functions to enable/disable numeracy chart statement buttons based on index
+function updateButtons(index, statements) {
+  // const prevBtn = d3.select("#prev-statement-btn");
+  // const nextBtn = d3.select("#next-statement-btn");
+  const prevBtn = d3.select("#prev-statement-btn");
+  const nextBtn = d3.select("#next-statement-btn");
+  if (index === 0) {
+    disableButton(prevBtn);
+    enableButton(nextBtn, "next");
+  } else if (index === statements.length - 1) {
+    disableButton(nextBtn);
+    enableButton(prevBtn, "prev");
+  } else {
+    enableButton(prevBtn, "prev");
+    enableButton(nextBtn, "next");
   }
 }
 
-function makeNumeracyChart() {
-  // implement interactive element (statement with forward and backward buttons)
+function disableButton(button) {
+  button.on("click", null).classed("disabled-btn", true);
+}
 
-  const fontSize = 25;
-  const padding = fontSize / 2;
-
-  // get discrimination statements from data
-  const statements = discrimination_experiences.map(
-    (entry) => entry["Experiences of discrimination"]
-  );
-  //   start with first statement
-  let statementIndex = 0;
-
-  // statement
-  chart
-    .append("text")
-    .attr("id", "discrimination-statement")
-    .attr("x", chartWidth / 2)
-    .text(statements[statementIndex])
-    .attr("text-anchor", "middle")
-    .style("font-size", `${fontSize}px`);
-
-  singleNumeracyChart(statements[statementIndex]);
-
-  // prev, next buttons
-  svg
-    .append("image")
-    .attr("xlink:href", "/assets/images/Right.svg")
-    .attr("width", fontSize)
-    .attr("id", "next-statement-btn")
-    .attr("x", svgWidth - padding * 3)
-    .attr("y", padding)
-    // Click listener
-    .on("click", () => {
-      if (statementIndex < statements.length - 1) {
-        statementIndex++;
-        singleNumeracyChart(statements[statementIndex]);
-      }
-    });
-  svg
-    .append("image")
-    .attr("xlink:href", "/assets/images/Left.svg")
-    .attr("width", fontSize)
-    .attr("id", "prev-statement-btn")
-    .attr("x", padding)
-    .attr("y", padding)
-    // Click listener
-    .on("click", () => {
+function enableButton(button, id) {
+  button.classed("disabled-btn", false);
+  if (id === "prev") {
+    button.on("click", () => {
       if (statementIndex > 0) {
         statementIndex--;
+        d3.selectAll(".label").remove();
         singleNumeracyChart(statements[statementIndex]);
+        updateButtons(statementIndex, statements);
       }
     });
+  } else if (id === "next") {
+    button.on("click", () => {
+      if (statementIndex < statements.length - 1) {
+        statementIndex++;
+        d3.selectAll(".label").remove();
+        singleNumeracyChart(statements[statementIndex]);
+        updateButtons(statementIndex, statements);
+      }
+    });
+  }
+}
 
-  // implement chart
-  // implement legend with encodings
+/*
+PIE CHART: REASONS FOR CORRECTING STUDENTS
+*/
+
+function pieChart() {
+  // filter cases where teacher corrected
+  const correction = correction_reasons.filter(
+    (x) => x["make_correction"] === "y"
+  );
+  const correct_pedagogical = correction
+    .map((x) => parseFloat(x["positive_pedagogical"]))
+    .reduce((x1, x2) => x1 + x2);
+
+  const correct_social = correction
+    .map((x) => parseFloat(x["positive_social"]))
+    .reduce((x1, x2) => x1 + x2);
+
+  const percent_correct_pedagogical =
+    correct_pedagogical / (correct_pedagogical + correct_social);
+  const percent_correct_social =
+    correct_social / (correct_pedagogical + correct_social);
+
+  const radius = Math.min(chartWidth, chartHeight) / 3;
+  const pie = d3.pie().value((d) => d);
+  const arcs = pie([percent_correct_pedagogical, percent_correct_social]);
+  const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
+
+  chart
+    .selectAll()
+    .data(arcs)
+    .enter()
+    .append("path")
+    .attr("class", "pie-slice")
+    .attr(
+      "transform",
+      "translate(" + chartWidth / 2 + "," + chartHeight / 2 + ")"
+    )
+    .attr("d", arcGenerator)
+    .attr("fill", "red");
+
+  // filter cases where teacher did not correct
+  const no_correction = correction_reasons.filter(
+    (x) => x["make_correction"] === "n"
+  );
 }
 
 async function initialize() {
   initializeSVG();
   await loadData();
-  makeNumeracyChart();
+  // interactiveNumeracyChart();
+  pieChart();
 }
 
 initialize();

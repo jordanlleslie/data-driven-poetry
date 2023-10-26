@@ -11,10 +11,17 @@ p {
 .title {
   padding: 20px;
   font-weight: normal;
+  text-align: center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .svg-container {
-  background-color: #d5d9d5;
+  /* background-color: #999; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +30,44 @@ p {
 #next-statement-btn,
 #prev-statement-btn {
   &:hover {
-    opacity: 60%;
+    opacity: 0.7;
     cursor: pointer;
   }
+}
+
+.numeracy-category:hover {
+  cursor: pointer;
+}
+
+.numeracy-category:hover rect {
+  opacity: 0.1;
+}
+
+#svg {
+  background-color: #eee;
+}
+
+#discrimination-statement {
+  font-style: italic;
+}
+
+.disabled-btn {
+  opacity: 0.5 !important;
+  &:hover {
+    cursor: default !important;
+  }
+}
+
+#selection-bar {
+  margin: 16px;
+}
+
+/* .active-selection {
+} */
+
+.selection-btn {
+  background-color: #eee;
+  border: none;
+  margin: 0;
+  display: inline;
 }
