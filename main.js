@@ -19,7 +19,6 @@ let rightArrow, leftArrow;
 
 async function loadImages() {
   let data = await d3.text("./assets/images/Right.svg");
-  console.log(data);
   rightArrow = btoa(data);
   data = await d3.text("./assets/images/Left.svg");
   leftArrow = btoa(data);
