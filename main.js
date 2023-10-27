@@ -1,5 +1,5 @@
-import Person from "/assets/images/Person.js";
-import pieChart from "/utils/pieChart.js";
+import Person from "./assets/images/Person.js";
+import pieChart from "./utils/pieChart.js";
 
 let chart, chartWidth, chartHeight;
 const svgWidth = 600;
