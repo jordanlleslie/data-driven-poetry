@@ -11,9 +11,9 @@ let svg = d3.select("#svg");
 
 async function loadData() {
   discrimination_experiences = await d3.csv(
-    "/assets/data/discrimination_experiences.csv"
+    "./assets/data/discrimination_experiences.csv"
   );
-  correction_reasons = await d3.csv("/assets/data/correction_reasons.csv");
+  correction_reasons = await d3.csv("./assets/data/correction_reasons.csv");
 }
 
 function initializeSVG() {
@@ -238,6 +238,8 @@ function buttons() {
   let activeButton = d3.select(".active-button");
   const buttons = d3.selectAll(".selection-btn");
   buttons.on("click", (e) => {
+    // click on active selection should do nothing
+    if (e.target.classList.contains("active-button")) return;
     e.target.classList.add("active-button");
     activeButton.classed("active-button", false);
     activeButton = d3.select(".active-button");
