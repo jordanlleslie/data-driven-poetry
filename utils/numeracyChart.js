@@ -154,14 +154,14 @@ function interactiveNumeracyChart(chart) {
   // prev, next buttons
   statementSelector
     .append("image")
-    .attr("xlink:href", "../assets/images/Right.svg")
+    .attr("href", "../assets/images/Right.svg")
     .attr("width", buttonSize)
     .attr("id", "next-statement-btn")
     .attr("x", svgWidth - buttonSize - padding);
 
   statementSelector
     .append("image")
-    .attr("xlink:href", "../assets/images/Left.svg")
+    .attr("href", "../assets/images/Left.svg")
     .attr("width", buttonSize)
     .attr("id", "prev-statement-btn")
     .attr("x", padding);

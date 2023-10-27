@@ -83,7 +83,7 @@ function numeracyChartWrapper() {
 function pieChartWrapper() {
   initializeSVG();
   updateTitle(
-    "Self-reported reasons for correcting or not correcting students"
+    "Teachers' reasons for correcting and not correcting students' speech"
   );
   pieChart(correction_reasons, chartWidth, chartHeight, chart);
 }
