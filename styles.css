@@ -34,13 +34,13 @@ body {
   }
 }
 
-.numeracy-category:hover {
+/* .numeracy-category:hover {
   cursor: pointer;
-}
+} */
 
-.numeracy-category:hover rect {
+/* .numeracy-category:hover rect {
   opacity: 0.1;
-}
+} */
 
 #svg {
   background-color: #eee;
