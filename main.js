@@ -51,7 +51,8 @@ function updateTitle(title) {
   }
 }
 
-function buttons() {
+// TEMPORARY mechanism to toggle between charts
+function selectChart() {
   // update active chart selection buttons
   let activeButton = d3.select(".active-button");
   const buttons = d3.selectAll(".selection-btn");
@@ -62,11 +63,6 @@ function buttons() {
     activeButton.classed("active-button", false);
     activeButton = d3.select(".active-button");
   });
-}
-
-function selectChart() {
-  // temporary mechanism to toggle between charts
-  buttons();
 }
 
 document.getElementById("select-pie").addEventListener("click", (e) => {

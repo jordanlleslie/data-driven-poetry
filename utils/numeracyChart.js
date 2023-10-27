@@ -1,3 +1,6 @@
+/*
+NUMERACY CHART: EXPERIENCES OF DISCRIMINATION VS. LANGUAGE PRESTIGE
+*/
 import Person from "../assets/images/Person.js";
 import {
   discrimination_experiences,
@@ -6,10 +9,6 @@ import {
   chartWidth,
   chartHeight,
 } from "../main.js";
-
-/*
-NUMERACY CHART: EXPERIENCES OF DISCRIMINATION VS. LANGUAGE PRESTIGE
-*/
 
 // Helper functions to enable/disable numeracy chart statement buttons based on index
 function updateButtons(index, statements, chart) {
