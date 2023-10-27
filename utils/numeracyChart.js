@@ -2,14 +2,6 @@
 NUMERACY CHART: EXPERIENCES OF DISCRIMINATION VS. LANGUAGE PRESTIGE
 */
 
-let rightArrow, leftArrow;
-async function loadImages() {
-  let data = await d3.text("../assets/images/Right.svg");
-  rightArrow = btoa(data);
-  data = await d3.text("../assets/images/Left.svg");
-  leftArrow = btoa(data);
-}
-
 import Person from "../assets/images/Person.js";
 import {
   discrimination_experiences,
@@ -17,6 +9,8 @@ import {
   svgWidth,
   chartWidth,
   chartHeight,
+  rightArrow,
+  leftArrow,
 } from "../main.js";
 
 // Helper functions to enable/disable numeracy chart statement buttons based on index
@@ -132,7 +126,7 @@ let statementIndex;
 let statements;
 
 async function interactiveNumeracyChart(chart) {
-  await loadImages();
+  //   await loadImages();
   // updateTitle("Experiences of Linguistic Discrimination in Germany");
 
   // implement interactive element (statement with forward and backward buttons)
@@ -171,7 +165,7 @@ async function interactiveNumeracyChart(chart) {
 
   statementSelector
     .append("svg:image")
-    .attr("href", "../assets/images/Left.svg")
+    .attr("href", "data:image/svg+xml;base64," + leftArrow)
     .attr("width", buttonSize)
     .attr("id", "prev-statement-btn")
     .attr("x", padding);

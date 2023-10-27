@@ -15,6 +15,15 @@ async function loadData() {
   correction_reasons = await d3.csv("./assets/data/correction_reasons.csv");
 }
 
+let rightArrow, leftArrow;
+
+async function loadImages() {
+  let data = await d3.text("../assets/images/Right.svg");
+  rightArrow = btoa(data);
+  data = await d3.text("../assets/images/Left.svg");
+  leftArrow = btoa(data);
+}
+
 function initializeSVG() {
   svg
     .attr("width", svgWidth)
@@ -90,6 +99,7 @@ function pieChartWrapper() {
 
 async function initialize() {
   await loadData();
+  await loadImages();
   selectChart();
   numeracyChartWrapper();
 }
@@ -103,4 +113,6 @@ export {
   svgHeight,
   chartWidth,
   chartHeight,
+  rightArrow,
+  leftArrow,
 };
