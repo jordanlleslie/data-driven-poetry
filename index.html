@@ -3,7 +3,7 @@
   <head>
     <!-- TODO: Replace title -->
     <title>Jordan's Poem</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
   </head>
   <body>
@@ -14,10 +14,14 @@
         <svg id="svg"></svg>
     </div>
     <div id="selection-bar">
-      <button class="selection-btn active-button">Numeracy Chart</button>
-      <button class="selection-btn">Pie Chart</button>
-      <button class="selection-btn">Parallel Coordinates Plot</button>
+      <button id="select-numeracy" class="selection-btn active-button">Numeracy Chart</button>
+      <button id="select-pie" class="selection-btn">Pie Chart</button>
+      <!-- <button id="select-parallel" class="selection-btn">Parallel Coordinates Plot</button> -->
     </div>
-    <script type="module" src="main.js"></script>
+    <p >I decided to scrap my idea for a parallel coordinates plot because I didn't feel that there were enough variables 
+      for it to be an effective use of the data, and I had more ideas for interactive elements in the above two visualizations 
+      which I expect to take some heavy lifting.</p>
+    <p >I also included the interactive arrows to click through the statements in the numeracy plot, but the vis itself is static.</p>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
