@@ -1,8 +1,7 @@
 import Person from "/assets/images/Person.js";
+import pieChart from "/utils/pieChart.js";
 
 let chart, chartWidth, chartHeight;
-// let xScale, yScale;
-
 const svgWidth = 600;
 const svgHeight = 400;
 
@@ -35,9 +34,6 @@ function initializeSVG() {
     .attr("width", chartWidth)
     .attr("height", chartHeight);
 
-  // xScale = d3.scaleBand().domain([]).range([0, chartWidth]).padding(0.1);
-  // yScale = d3.scaleLinear().domain([]).nice().range([chartHeight, 0]);
-
   // Add title
   svg
     .append("text")
@@ -58,6 +54,7 @@ function updateTitle(title) {
 
 /*
 NUMERACY CHART: EXPERIENCES OF DISCRIMINATION VS. LANGUAGE PRESTIGE
+TODO: Move this to another file
 */
 
 function singleNumeracyChart(statement) {
@@ -129,10 +126,9 @@ let statementIndex;
 let statements;
 
 function interactiveNumeracyChart() {
-  // implement interactive element (statement with forward and backward buttons)
-
   // updateTitle("Experiences of Linguistic Discrimination in Germany");
 
+  // implement interactive element (statement with forward and backward buttons)
   const buttonSize = 32;
   const padding = buttonSize / 4;
   // get discrimination statements from data
@@ -140,6 +136,7 @@ function interactiveNumeracyChart() {
   statements = discrimination_experiences.map(
     (entry) => entry["Experiences of discrimination"]
   );
+
   svg
     .append("g")
     .attr("id", "statement-selector")
@@ -164,33 +161,17 @@ function interactiveNumeracyChart() {
     .attr("width", buttonSize)
     .attr("id", "next-statement-btn")
     .attr("x", svgWidth - buttonSize - padding);
-  // Click listener
-  // .on("click", () => {
-  //   if (statementIndex < statements.length - 1) {
-  //     statementIndex++;
-  //     d3.selectAll(".label").remove();
-  //     singleNumeracyChart(statements[statementIndex]);
-  //     updateButtons(statementIndex, statements);
-  //   }
-  // });
+
   statementSelector
     .append("image")
     .attr("xlink:href", "/assets/images/Left.svg")
     .attr("width", buttonSize)
     .attr("id", "prev-statement-btn")
     .attr("x", padding);
-  // Click listener
-  // .on("click", () => {
-  //   if (statementIndex > 0) {
-  //     statementIndex--;
-  //     d3.selectAll(".label").remove();
-  //     singleNumeracyChart(statements[statementIndex]);
-  //     updateButtons(statementIndex, statements);
-  //   }
-  // });
 
   // implement chart
   singleNumeracyChart(statements[statementIndex]);
+
   chart
     .append("text")
     .text("low prestige language")
@@ -252,57 +233,35 @@ function enableButton(button, id) {
   }
 }
 
-/*
-PIE CHART: REASONS FOR CORRECTING STUDENTS
-*/
+function buttons() {
+  // update active chart selection buttons
+  let activeButton = d3.select(".active-button");
+  const buttons = d3.selectAll(".selection-btn");
+  buttons.on("click", (e) => {
+    e.target.classList.add("active-button");
+    activeButton.classed("active-button", false);
+    activeButton = d3.select(".active-button");
+  });
+}
 
-function pieChart() {
-  // filter cases where teacher corrected
-  const correction = correction_reasons.filter(
-    (x) => x["make_correction"] === "y"
+function selectChart() {
+  // temporary mechanism to toggle between charts
+  buttons();
+}
+
+function pieChartWrapper() {
+  updateTitle(
+    "Self-reported reasons for correcting or not correcting students"
   );
-  const correct_pedagogical = correction
-    .map((x) => parseFloat(x["positive_pedagogical"]))
-    .reduce((x1, x2) => x1 + x2);
-
-  const correct_social = correction
-    .map((x) => parseFloat(x["positive_social"]))
-    .reduce((x1, x2) => x1 + x2);
-
-  const percent_correct_pedagogical =
-    correct_pedagogical / (correct_pedagogical + correct_social);
-  const percent_correct_social =
-    correct_social / (correct_pedagogical + correct_social);
-
-  const radius = Math.min(chartWidth, chartHeight) / 3;
-  const pie = d3.pie().value((d) => d);
-  const arcs = pie([percent_correct_pedagogical, percent_correct_social]);
-  const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
-
-  chart
-    .selectAll()
-    .data(arcs)
-    .enter()
-    .append("path")
-    .attr("class", "pie-slice")
-    .attr(
-      "transform",
-      "translate(" + chartWidth / 2 + "," + chartHeight / 2 + ")"
-    )
-    .attr("d", arcGenerator)
-    .attr("fill", "red");
-
-  // filter cases where teacher did not correct
-  const no_correction = correction_reasons.filter(
-    (x) => x["make_correction"] === "n"
-  );
+  pieChart(correction_reasons, chartWidth, chartHeight, chart);
 }
 
 async function initialize() {
   initializeSVG();
+  selectChart();
   await loadData();
   // interactiveNumeracyChart();
-  pieChart();
+  pieChartWrapper();
 }
 
 initialize();
