@@ -176,7 +176,9 @@ async function interactiveNumeracyChart(chart) {
     .text("low prestige language")
     .attr("y", chartHeight)
     .attr("x", chartWidth / 4)
-    .attr("text-anchor", "middle");
+    .attr("text-anchor", "middle")
+    .style("font-size", "16px");
+
   chart
     .append("text")
     .text("high prestige language")
