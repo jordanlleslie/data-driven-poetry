@@ -106,18 +106,16 @@ function singleNumeracyChart(statement, chart) {
       .text(value)
       .attr("y", chartHeight - padding * 3)
       .attr("x", xPosition)
-      .style("visibility", "visible")
-      //   .style("visibility", "hidden")
+      .style("visibility", "hidden")
       .style("fill", colors[key]);
     // Show label when hovering
-    // TODO: uncomment for interactive vis
-    // category
-    //   .on("mouseover", () => {
-    //     category.selectAll(".label").style("visibility", "visible");
-    //   })
-    //   .on("mouseout", () => {
-    //     category.selectAll(".label").style("visibility", "hidden");
-    //   });
+    category
+      .on("mouseover", () => {
+        category.selectAll(".label").style("visibility", "visible");
+      })
+      .on("mouseout", () => {
+        category.selectAll(".label").style("visibility", "hidden");
+      });
     xPosition += rowSize * iconSize;
   }
 }
@@ -126,7 +124,6 @@ let statementIndex;
 let statements;
 
 async function interactiveNumeracyChart(chart) {
-  //   await loadImages();
   // updateTitle("Experiences of Linguistic Discrimination in Germany");
 
   // implement interactive element (statement with forward and backward buttons)
