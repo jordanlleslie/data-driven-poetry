@@ -107,6 +107,7 @@ function singleNumeracyChart(statement, chart) {
       .attr("y", chartHeight - padding * 3)
       .attr("x", xPosition)
       .style("visibility", "hidden")
+      .style("font-size", "20px")
       .style("fill", colors[key]);
     // Show label when hovering
     category

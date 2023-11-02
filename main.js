@@ -2,8 +2,8 @@ import numeracyChart from "./utils/numeracyChart.js";
 import pieChart from "./utils/pieChart.js";
 
 let chart, chartWidth, chartHeight;
-const svgWidth = 600;
-const svgHeight = 400;
+const svgWidth = 700;
+const svgHeight = 450;
 let svg = d3.select("#svg");
 
 let discrimination_experiences, correction_reasons;
@@ -49,7 +49,7 @@ function initializeSVG() {
     .attr("x", svgWidth / 2)
     .attr("y", 40)
     .attr("text-anchor", "middle")
-    .style("font-size", "18px")
+    .style("font-size", "20px")
     .text("");
 }
 
