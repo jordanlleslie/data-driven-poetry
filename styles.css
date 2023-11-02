@@ -9,10 +9,6 @@ p {
   padding: 0;
 }
 
-body {
-  padding-left: 5%;
-}
-
 .title {
   padding: 40px 0;
   font-weight: normal;
@@ -22,11 +18,10 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-left: 100px;
-  background-color: #eee;
+  background-color: #edede9;
   padding-top: 40px;
   width: 100%;
-  flex: 3;
+  flex: 5;
   min-width: 600px;
 }
 
@@ -90,10 +85,22 @@ li {
   min-height: calc(100vh);
 }
 
+@media (max-width: 1150px) {
+  #wrapper {
+    flex-direction: column;
+    max-height: calc(50vh);
+  }
+  #poem-container {
+    max-height: calc(20vh);
+  }
+}
+
 #poem-container {
+  padding: 0 5%;
   flex: 2;
   overflow: auto;
   max-height: calc(100vh);
+  background-color: #fffffe;
 }
 
 #statement-selector {
