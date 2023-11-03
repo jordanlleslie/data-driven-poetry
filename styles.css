@@ -46,7 +46,7 @@ p {
 }
 
 .disabled-btn {
-  opacity: 0.5 !important;
+  opacity: 0.3 !important;
   &:hover {
     cursor: default !important;
   }
@@ -78,6 +78,10 @@ li {
   font-size: 20px;
 }
 
+.active-verse {
+  color: black;
+}
+
 #wrapper {
   display: flex;
   flex-direction: row;
@@ -85,7 +89,7 @@ li {
   min-height: calc(100vh);
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1280px) {
   #wrapper {
     flex-direction: column;
     max-height: calc(50vh);
@@ -101,6 +105,7 @@ li {
   overflow: auto;
   max-height: calc(100vh);
   background-color: #fffffe;
+  min-width: 400px;
 }
 
 #statement-selector {
