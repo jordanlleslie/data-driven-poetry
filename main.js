@@ -33,9 +33,12 @@ let keyframes = [
     activeLines: [1, 2, 3, 4, 5, 6, 7, 8],
   },
 ];
-document.getElementById("backward-button").disabled = keyframeIndex === 0;
-document.getElementById("forward-button").disabled =
-  keyframeIndex === keyframes.length - 1;
+
+d3.select("#backward-button").classed("disabled-btn", keyframeIndex === 0);
+d3.select("#forward-button").classed(
+  "disabled-btn",
+  keyframeIndex === keyframes.length - 1
+);
 
 document
   .getElementById("forward-button")
@@ -62,9 +65,11 @@ function backwardClicked() {
 function drawKeyframe(kfi) {
   let kf = keyframes[kfi];
   // update enabled/disabled buttons
-  document.getElementById("backward-button").disabled = kfi === 0;
-  document.getElementById("forward-button").disabled =
-    kfi === keyframes.length - 1;
+  d3.select("#backward-button").classed("disabled-btn", keyframeIndex === 0);
+  d3.select("#forward-button").classed(
+    "disabled-btn",
+    keyframeIndex === keyframes.length - 1
+  );
 
   resetActiveLines();
   updateActiveVerse(kf.activeVerse);
@@ -210,7 +215,6 @@ async function initialize() {
   await loadData();
   await loadImages();
   selectChart();
-  // numeracyChartWrapper();
 }
 
 initialize();

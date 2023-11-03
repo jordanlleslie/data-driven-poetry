@@ -29,8 +29,9 @@ p {
 #prev-statement-btn,
 #forward-button,
 #backward-button {
+  opacity: 0.3;
   &:hover {
-    opacity: 0.7;
+    opacity: 1;
     cursor: pointer;
   }
 }
@@ -56,6 +57,7 @@ p {
 
 #selection-bar {
   margin-top: 16px;
+  visibility: hidden;
 }
 
 .selection-btn {
@@ -78,10 +80,11 @@ li {
   margin-bottom: 2rem;
   padding: 0;
   font-size: 20px;
+  color: #777;
 }
 
-.active-line {
-  color: #777;
+.active-verse {
+  color: black;
 }
 
 #wrapper {
@@ -139,10 +142,6 @@ li {
   border: none;
   width: 40px;
   margin: 16px;
-  /* &:hover {
-    border: 1px solid lightgrey;
-    border-radius: 25%;
-  } */
 }
 
 button {
@@ -151,5 +150,9 @@ button {
 }
 
 .filler-verse {
-  height: 2000px;
+  height: 300px;
+}
+
+.active-line .emphasis {
+  text-decoration: underline;
 }
