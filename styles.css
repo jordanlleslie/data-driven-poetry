@@ -26,7 +26,9 @@ p {
 }
 
 #next-statement-btn,
-#prev-statement-btn {
+#prev-statement-btn,
+#forward-button,
+#back-button {
   &:hover {
     opacity: 0.7;
     cursor: pointer;
@@ -86,7 +88,7 @@ li {
   display: flex;
   flex-direction: row;
   width: 100%;
-  min-height: calc(100vh);
+  min-height: calc(100vh - 100);
 }
 
 @media (max-width: 1280px) {
@@ -94,24 +96,51 @@ li {
     flex-direction: column;
     max-height: calc(50vh);
   }
-  #poem-container {
+  #poem {
     max-height: calc(20vh);
   }
 }
 
 #poem-container {
-  padding: 0 5%;
+  padding-right: 48px;
   flex: 2;
+  background-color: #fffffe;
+  min-width: 640px;
+  display: flex;
+}
+
+#poem {
   overflow: auto;
   max-height: calc(100vh);
-  background-color: #fffffe;
-  min-width: 400px;
 }
 
 #statement-selector {
   font-size: 20px;
 }
 
-#poem-container::-webkit-scrollbar {
+#poem::-webkit-scrollbar {
   display: none;
+}
+
+#button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#forward-button,
+#back-button {
+  border: none;
+  width: 40px;
+  margin: 16px;
+  /* &:hover {
+    border: 1px solid lightgrey;
+    border-radius: 25%;
+  } */
+}
+
+button {
+  border: none;
+  background: none;
 }

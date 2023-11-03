@@ -7,8 +7,14 @@
   </head>
   <body>
       <div id="wrapper">
+        
         <div id="poem-container">
-          <h1 class="title">A typical conversation of mine this summer in Taiwan</h1>
+          <div id="button-container">
+            <button><image class="disabled-btn" id="back-button" src="./assets/images/Up.svg"/></button>
+            <button><image id="forward-button" src="./assets/images/Down.svg"/></button>
+          </div>
+          <div id="poem">
+          <h1 class="title">A typical conversation of mine <br>this summer in Taiwan</h1>
           <ul class="verse active-verse" id="verse1">
             <li>Hello, my (English) name is Jordan</li>
             <li>Sorry, my Chinese isn't too good—</li>
@@ -51,12 +57,12 @@
             <li>As long as we understand each other,</li>
             <li>It doesn't matter how we speak.</li>
           </ul>
-
+        </div>
         </div>
       <div class="svg-container">
         <svg id="svg"></svg>
         <div id="selection-bar">
-          <button id="select-numeracy" class="selection-btn active-button">Numeracy Chart</button>
+          <button id="select-numeracy" class="selection-btn">Numeracy Chart</button>
           <button id="select-pie" class="selection-btn">Pie Chart</button>
         </div>
       </div>
