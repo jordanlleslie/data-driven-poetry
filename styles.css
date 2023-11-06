@@ -23,6 +23,7 @@ p {
   width: 100%;
   flex: 5;
   min-width: 600px;
+  padding-bottom: 500px;
 }
 
 #next-statement-btn,
@@ -94,7 +95,7 @@ li {
   min-height: calc(100vh - 100);
 }
 
-@media (max-width: 1350px) {
+/* @media (max-width: 1350px) {
   #wrapper {
     flex-direction: column;
     max-height: calc(50vh);
@@ -106,7 +107,7 @@ li {
   #button-container {
     margin-right: 32px;
   }
-}
+} */
 
 #poem-container {
   flex: 2;
@@ -155,4 +156,15 @@ button {
 
 .active-line .emphasis {
   text-decoration: underline;
+}
+
+.table-text {
+  font-size: 18px;
+}
+
+.table-row {
+  border-bottom: 1px solid black;
+}
+
+#table {
 }

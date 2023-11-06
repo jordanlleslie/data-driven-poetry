@@ -63,7 +63,8 @@ function singleNumeracyChart(statement, chart) {
 
   // TODO: Add animation for transitions
   svg.selectAll(".discrimination-icon").remove();
-  svg.select("#discrimination-statement").text(statement);
+  const header = svg.select("#discrimination-statement");
+  header.text(statement);
 
   let row = discrimination_experiences.filter(
     (entry) => entry["Experiences of discrimination"] === statement
@@ -96,14 +97,14 @@ function singleNumeracyChart(statement, chart) {
         .append("svg")
         .attr("class", "discrimination-icon")
         .html(Person(colors[key], iconSize, padding))
-        .attr("x", xPosition + (i % rowSize) * iconSize)
-        .attr("y", chartHeight - Math.floor(i / rowSize + 2) * iconSize);
+        .attr("y", chartHeight - Math.floor(i / rowSize + 2) * iconSize)
+        .attr("x", xPosition + (i % rowSize) * iconSize);
     }
     // Add hidden label
     category
       .append("text")
       .attr("class", "label")
-      .text(value)
+      .text(value + "%")
       .attr("y", chartHeight - padding * 3)
       .attr("x", xPosition)
       .style("visibility", "hidden")

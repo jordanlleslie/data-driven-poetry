@@ -2,9 +2,36 @@
 PIE CHART: REASONS FOR CORRECTING STUDENTS
 */
 
-function labelArcs(chart, arcs, arcGenerator, chartHeight, chart_x) {
-  // Helper function to add value labels to pie chart
-  chart
+function addArcs(chart, arcs, chart_x, chartHeight, arcGenerator, data) {
+  // Helper function to add arcs to pie chart
+
+  // Group label and arc together so event listeners are the same
+  let group = chart
+    .append("g")
+    .on("click", (e) => {
+      const correct_or_not = e.target.__data__.data.make_correct;
+      makeTable(chart, data, correct_or_not);
+    })
+    .on("mouseover", (e) => {
+      e.target.parentNode.setAttribute("opacity", "0.5");
+    })
+    .on("mouseout", (e) => {
+      e.target.parentNode.setAttribute("opacity", "1");
+    });
+
+  // Add arcs
+  group
+    .selectAll()
+    .data(arcs)
+    .enter()
+    .append("path")
+    .attr("class", "pie-slice")
+    .attr("transform", "translate(" + chart_x + "," + chartHeight / 2 + ")")
+    .attr("fill", (d) => d.data.color)
+    .attr("d", arcGenerator);
+
+  // Add labels
+  group
     .selectAll()
     .data(arcs)
     .enter()
@@ -20,19 +47,6 @@ function labelArcs(chart, arcs, arcGenerator, chartHeight, chart_x) {
       return `translate(${translation})`;
     })
     .style("text-anchor", "middle");
-}
-
-function addArcs(chart, arcs, chart_x, chartHeight, arcGenerator) {
-  // Helper function to add arcs to pie chart
-  chart
-    .selectAll()
-    .data(arcs)
-    .enter()
-    .append("path")
-    .attr("class", "pie-slice")
-    .attr("transform", "translate(" + chart_x + "," + chartHeight / 2 + ")")
-    .attr("d", arcGenerator)
-    .attr("fill", (d) => d.data.color);
 }
 
 function labelChart(chart, chart_x, chartHeight, text) {
@@ -87,19 +101,19 @@ function makeLegend(chart, chartHeight, arcs) {
     .attr("fill", (d) => d.data.color);
 }
 
-function formatData(pedagogical, social) {
+function formatData(pedagogical, social, make_correction) {
   const pedagogical_color = "#D55E00";
   const social_color = "#0072B2";
   const total = pedagogical + social;
   const fdata = [
     {
-      make_correct: "y",
+      make_correct: make_correction,
       reason: "Pedagogical",
       percent: pedagogical / total,
       color: pedagogical_color,
     },
     {
-      make_correct: "y",
+      make_correct: make_correction,
       reason: "Social",
       percent: social / total,
       color: social_color,
@@ -119,8 +133,38 @@ function processData(data, make_correction) {
     .map((x) => parseFloat(x["positive_social"]))
     .reduce((x1, x2) => x1 + x2);
 
-  const finalData = formatData(pedagogical, social);
+  const finalData = formatData(pedagogical, social, make_correction);
   return finalData;
+}
+
+function makeTable(chart, data, correct_or_not) {
+  const chartWidth = chart.attr("width");
+  const filtered_data = data.filter(
+    (x) => x["make_correction"] === correct_or_not
+  );
+
+  const table = chart
+    .append("g")
+    .attr("id", "table")
+    .attr("transform", "translate(0,400)");
+
+  const rows = table.selectAll().data(filtered_data).enter().append("g");
+  console.log(filtered_data);
+
+  rows
+    .append("rect")
+    .attr("class", "table-row")
+    .attr("y", (d, i) => i * 30)
+    .attr("height", 30)
+    .attr("width", chartWidth)
+    .attr("fill", (d, i) => (i % 2 === 0 ? "#fffffe" : "#eeeeed"));
+
+  rows
+    .append("text")
+    .text((d) => d["phrase"])
+    .attr("x", 10)
+    .attr("class", "table-text")
+    .attr("y", (d, i) => i * 30 + 25);
 }
 
 function pieChart(correction_reasons, chartWidth, chartHeight, chart) {
@@ -138,14 +182,14 @@ function pieChart(correction_reasons, chartWidth, chartHeight, chart) {
   let arcs = pie(correct_data);
   const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
 
-  addArcs(chart, arcs, x1, chartHeight, arcGenerator);
-  labelArcs(chart, arcs, arcGenerator, chartHeight, x1);
+  addArcs(chart, arcs, x1, chartHeight, arcGenerator, correction_reasons);
+  // labelArcs(chart, arcs, arcGenerator, chartHeight, x1);
   labelChart(chart, x1, chartHeight, "Corrected");
 
   arcs = pie(no_correct_data);
 
-  addArcs(chart, arcs, x2, chartHeight, arcGenerator);
-  labelArcs(chart, arcs, arcGenerator, chartHeight, x2);
+  addArcs(chart, arcs, x2, chartHeight, arcGenerator, correction_reasons);
+  // labelArcs(chart, arcs, arcGenerator, chartHeight, x2);
   labelChart(chart, x2, chartHeight, "Did not correct");
 
   makeLegend(chart, chartHeight, arcs);

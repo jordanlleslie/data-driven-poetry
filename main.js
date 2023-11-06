@@ -215,6 +215,7 @@ async function initialize() {
   await loadData();
   await loadImages();
   selectChart();
+  pieChartWrapper(); // TODO: Remove
 }
 
 initialize();
