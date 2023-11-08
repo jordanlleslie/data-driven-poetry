@@ -8,15 +8,18 @@ function addArcs(chart, arcs, chart_x, chartHeight, arcGenerator, data) {
   // Group label and arc together so event listeners are the same
   let group = chart
     .append("g")
+    .attr("class", "pie-chart")
     .on("click", (e) => {
       const correct_or_not = e.target.__data__.data.make_correct;
       makeTable(chart, data, correct_or_not);
+      d3.selectAll(".pie-chart").classed("inactive-pie", true);
+      group.classed("inactive-pie", false);
     })
     .on("mouseover", (e) => {
-      e.target.parentNode.setAttribute("opacity", "0.5");
+      e.target.parentNode.classList.add("pie-hovered");
     })
     .on("mouseout", (e) => {
-      e.target.parentNode.setAttribute("opacity", "1");
+      e.target.parentNode.classList.remove("pie-hovered");
     });
 
   // Add arcs
@@ -66,11 +69,7 @@ function makeLegend(chart, chartHeight, arcs) {
   const radius = 8;
 
   //   group svg elements so they can be manipulated with CSS
-  chart
-    .append("g")
-    .attr("id", "pie-legend")
-    .attr("x", 0)
-    .attr("y", chartHeight);
+  chart.append("g").attr("id", "pie-legend");
 
   const legend = d3.select("#pie-legend");
 
@@ -142,29 +141,90 @@ function makeTable(chart, data, correct_or_not) {
   const filtered_data = data.filter(
     (x) => x["make_correction"] === correct_or_not
   );
+  d3.select("#table").remove();
+  d3.select("#table-header").remove();
+
+  const header = chart
+    .append("g")
+    .attr("id", "table-header")
+    .attr("transform", "translate(0,400)");
+
+  header.append("text").text("% Positive reason").attr("x", 0);
+  header.append("text").text("% Negative reason").attr("x", 160);
+  header.append("text").text("Linguistic feature").attr("x", 350);
+
+  header
+    .append("text")
+    .text("close")
+    .attr("class", "close-btn")
+    .attr("x", chartWidth)
+    .attr("text-anchor", "end")
+    .on("click", () => {
+      d3.select("#table").remove();
+      d3.select("#table-header").remove();
+      d3.selectAll(".pie-chart").classed("inactive-pie", false);
+    });
+
+  header
+    .append("rect")
+    .attr("y", 10)
+    .attr("height", 2)
+    .attr("width", chartWidth);
 
   const table = chart
     .append("g")
     .attr("id", "table")
     .attr("transform", "translate(0,400)");
 
-  const rows = table.selectAll().data(filtered_data).enter().append("g");
+  const rows = table
+    .selectAll()
+    .data(filtered_data)
+    .enter()
+    .append("g")
+    .attr("class", "table-row");
   console.log(filtered_data);
 
   rows
     .append("rect")
-    .attr("class", "table-row")
-    .attr("y", (d, i) => i * 30)
-    .attr("height", 30)
-    .attr("width", chartWidth)
-    .attr("fill", (d, i) => (i % 2 === 0 ? "#fffffe" : "#eeeeed"));
+    .attr("y", (d, i) => i * 30 + 25)
+    .attr("height", 20)
+    .attr("width", (d) => parseInt(d["positive_reason"]) * 2)
+    .attr("opacity", 0.4)
+    .attr("fill", "#009E73");
+  rows
+    .append("text")
+    .text((d) => d["positive_reason"])
+    .attr("x", 2)
+    .attr("class", "table-text")
+    .attr("y", (d, i) => i * 30 + 41)
+    .attr("fill", "black");
+
+  rows
+    .append("rect")
+    .attr("x", 160)
+    .attr("y", (d, i) => i * 30 + 25)
+    .attr("height", 20)
+    .attr("width", (d) => parseInt(d["negative_reason"]) * 1.5)
+    .attr("opacity", 0.2);
+  rows
+    .append("text")
+    .text((d) => d["negative_reason"])
+    .attr("x", 2 + 160)
+    .attr("class", "table-text")
+    .attr("y", (d, i) => i * 30 + 41)
+    .attr("fill", "black");
 
   rows
     .append("text")
-    .text((d) => d["phrase"])
-    .attr("x", 10)
+    .text((d) => d["linguistic_feature"])
+    .attr("x", 2 + 350)
     .attr("class", "table-text")
-    .attr("y", (d, i) => i * 30 + 25);
+    .attr("y", (d, i) => i * 30 + 41)
+    .attr("fill", "black");
+
+  rows.on("click", () => {
+    console.log("YAY");
+  });
 }
 
 function pieChart(correction_reasons, chartWidth, chartHeight, chart) {

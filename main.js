@@ -215,7 +215,7 @@ async function initialize() {
   await loadData();
   await loadImages();
   selectChart();
-  pieChartWrapper(); // TODO: Remove
+  drawKeyframe(0);
 }
 
 initialize();

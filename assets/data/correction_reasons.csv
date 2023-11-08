@@ -1,33 +1,33 @@
-make_correction,phrase,n_total,positive_reason,negative_reason,no_reason,n_positive,positive_pedagogical,positive_social,positive_alt,n_negative,negative_social,negative_linguistic
-n,1. Este fin de semana voy a visitar ___mi abuela (a).,20,60.00%,5.00%,35.00%,11,38.40%,63.60%,,,,
-n,2. Lo voy a guardar antes que llega el maestro. (llegue),11,54.50%,18.20%,27.30%,6,50.00%,50.00%,,,,
-n,"3. Cuando era pequeñita, jugué con mis primos cada día. Ahora no los veo. (jugaba)",19,52.60%,5.30%,42.10%,10,70.00%,30.00%,,,,
-n,4. La misma persona que está viviendo con ahora.,7,57.10%,14.30%,28.60%,4,75.00%,25.00%,,,,
-n,5. Yo creo que yo voy a la tienda.,23,52.20%,8.70%,39.10%,12,91.30%,8.70%,,,,
-n,"6. So, le abrí la puerta y le lleve ahí.",13,61.50%,0.00%,38.50%,8,62.50%,37.50%,,,,
-n,"7. Cuando tengo vergüenza, mi cara se pone rojo. (roja)",8,62.50%,0.00%,37.50%,5,100.00%,0.00%,,,,
-n,"8. Me encantan _____ clases con ___ Sr. Henriquez. (las, el).",12,66.70%,0.00%,33.30%,9,88.90%,11.10%,,,,
-n,9. Está enamorada con él. (de),15,40.00%,6.70%,53.30%,6,83.30%,16.70%,,,,
-n,10. Vi una girl que estaba walking her dog.,6,66.70%,16.70%,16.70%,4,100.00%,0.00%,,,,
-n,"11. Muy chiquito, pero yo creo ha crecido como unas seis pulgadas.",24,41.70%,8.30%,50.00%,10,80.00%,20.00%,,,,
-n,12. I went to buy some food because no había en la casa.,10,70.00%,30.00%,0.00%,7,42.90%,57.10%,,,,
-n,13. Ese libro Juan lo trajo ayer.,40,47.50%,2.50%,50.00%,19,73.70%,26.30%,,,,
-n,14. Se está liqueando el techo.,11,27.30%,0.00%,72.70%,3,66.70%,33.30%,,,,
-n,15. Mi prima prefiere dibujando con lápices de color.,8,62.50%,0.00%,37.50%,5,100.00%,0.00%,,,,
-n,16. ¿Nunca has comido en ese restaurante? The food is delicious.,16,75.00%,0.00%,25.00%,13,69.20%,30.80%,,,,
-y,1. Este fin de semana voy a visitar ___mi abuela. (a),63,22.20%,34.90%,42.90%,16,87.50%,6.30%,6.30%,20,25.00%,75.00%
-y,2. Lo voy a guardar antes que llega el maestro. (llegue),72,16.70%,40.30%,43.10%,12,75.00%,25.00%,0.005,29,17.25%,82.75%
-y,"3. Cuando era pequeñita, jugué con mis primos cada dia. Ahora no los veo. (jugaba)",64,20.30%,40.60%,39.10%,13,84.60%,7.70%,7.70%,26,19.23%,80.77%
-y,4. La misma persona que está viviendo con ahora.,76,15.80%,48.70%,35.50%,12,91.70%,8.30%,0.00%,37,13.51%,86.49%
-y,5. Yo creo que yo voy a la tienda.,60,11.70%,50.00%,38.30%,7,85.70%,14.30%,0.00%,30,10.00%,90.00%
-y,"6. So, le abrí la puerta y le lleve ahí.",70,8.60%,57.10%,34.30%,6,50.00%,0.00%,50.00%,40,65.00%,35.00%
-y,"7. Cuando tengo vergüenza, mi cara se pone rojo. (roja)",75,9.30%,56.00%,34.70%,7,67.00%,1.30%,1.30%,42,7.14%,92.86%
-y,"8. Me encantan _____ clases con ___ Sr. Henriquez. (las, el)",71,14.10%,47.90%,38.00%,11,81.80%,18.20%,0.00%,33,6.06%,93.94%
-y,9. Está enamorada con él. (de),68,13.20%,48.50%,38.20%,8,75.00%,12.50%,12.50%,34,11.76%,88.24%
-y,10. Vi una girl que estaba walking her dog.,77,6.50%,66.20%,27.30%,4,75.00%,0.00%,25.00%,52,65.38%,34.62%
-y,"11. Muy chiquito, pero yo creo ha crecido como unas seis pulgadas.",59,8.50%,57.60%,33.90%,5,60.00%,20.00%,20.00%,34,14.71%,85.29%
-y,12. I went to buy some food because no había en la casa.,73,6.80%,68.50%,24.70%,7,57.10%,14.30%,28.60%,48,68.75%,31.25%
-y,13. Ese libro Juan lo trajo ayer.,43,7.00%,46.50%,46.50%,3,66.70%,33.30%,0.00%,36,44.44%,55.55%
-y,14. Se está liqueando el techo.,72,5.60%,69.40%,25.00%,5,40.00%,0.00%,60.00%,49,42.86%,57.14%
-y,15. Mi prima prefiere dibujando con lápices de color.,75,8.00%,50.70%,41.30%,6,66.70%,16.70%,16.70%,38,2.63%,97.37%
-y,16. ¿Nunca has comido en ese restaurante? The food is delicious.,67,7.50%,68.70%,23.90%,5,80.00%,0.00%,20.00%,46,60.87%,39.13%
+make_correction,phrase,n_total,positive_reason,negative_reason,no_reason,n_positive,positive_pedagogical,positive_social,positive_alt,n_negative,negative_social,negative_linguistic,linguistic_feature
+n,1. Este fin de semana voy a visitar ___mi abuela (a).,20,60.00%,5.00%,35.00%,11,38.40%,63.60%,,,,,Case marker
+n,2. Lo voy a guardar antes que llega el maestro. (llegue),11,54.50%,18.20%,27.30%,6,50.00%,50.00%,,,,,Verb tense
+n,"3. Cuando era pequeñita, jugué con mis primos cada día. Ahora no los veo. (jugaba)",19,52.60%,5.30%,42.10%,10,70.00%,30.00%,,,,,Verb tense
+n,4. La misma persona que está viviendo con ahora.,7,57.10%,14.30%,28.60%,4,75.00%,25.00%,,,,,Prepositions
+n,5. Yo creo que yo voy a la tienda.,23,52.20%,8.70%,39.10%,12,91.30%,8.70%,,,,,Use of subject pronouns
+n,"6. So, le abrí la puerta y le lleve ahí.",13,61.50%,0.00%,38.50%,8,62.50%,37.50%,,,,,Code-switching
+n,"7. Cuando tengo vergüenza, mi cara se pone rojo. (roja)",8,62.50%,0.00%,37.50%,5,100.00%,0.00%,,,,,Gender agreement
+n,"8. Me encantan _____ clases con ___ Sr. Henriquez. (las, el).",12,66.70%,0.00%,33.30%,9,88.90%,11.10%,,,,,Definite articles
+n,9. Está enamorada con él. (de),15,40.00%,6.70%,53.30%,6,83.30%,16.70%,,,,,Prepositions
+n,10. Vi una girl que estaba walking her dog.,6,66.70%,16.70%,16.70%,4,100.00%,0.00%,,,,,Code-switching
+n,"11. Muy chiquito, pero yo creo ha crecido como unas seis pulgadas.",24,41.70%,8.30%,50.00%,10,80.00%,20.00%,,,,,Complementizer “que”
+n,12. I went to buy some food because no había en la casa.,10,70.00%,30.00%,0.00%,7,42.90%,57.10%,,,,,Code-switching
+n,13. Ese libro Juan lo trajo ayer.,40,47.50%,2.50%,50.00%,19,73.70%,26.30%,,,,,Order of constituents
+n,14. Se está liqueando el techo.,11,27.30%,0.00%,72.70%,3,66.70%,33.30%,,,,,Loanword
+n,15. Mi prima prefiere dibujando con lápices de color.,8,62.50%,0.00%,37.50%,5,100.00%,0.00%,,,,,Gerund vs. infinitive
+n,16. ¿Nunca has comido en ese restaurante? The food is delicious.,16,75.00%,0.00%,25.00%,13,69.20%,30.80%,,,,,Code-switching
+y,1. Este fin de semana voy a visitar ___mi abuela. (a),63,22.20%,34.90%,42.90%,16,87.50%,6.30%,6.30%,20,25.00%,75.00%,Case marker
+y,2. Lo voy a guardar antes que llega el maestro. (llegue),72,16.70%,40.30%,43.10%,12,75.00%,25.00%,0.005,29,17.25%,82.75%,Verb tense
+y,"3. Cuando era pequeñita, jugué con mis primos cada dia. Ahora no los veo. (jugaba)",64,20.30%,40.60%,39.10%,13,84.60%,7.70%,7.70%,26,19.23%,80.77%,Verb tense
+y,4. La misma persona que está viviendo con ahora.,76,15.80%,48.70%,35.50%,12,91.70%,8.30%,0.00%,37,13.51%,86.49%,Prepositions
+y,5. Yo creo que yo voy a la tienda.,60,11.70%,50.00%,38.30%,7,85.70%,14.30%,0.00%,30,10.00%,90.00%,Use of subject pronouns
+y,"6. So, le abrí la puerta y le lleve ahí.",70,8.60%,57.10%,34.30%,6,50.00%,0.00%,50.00%,40,65.00%,35.00%,Code-switching
+y,"7. Cuando tengo vergüenza, mi cara se pone rojo. (roja)",75,9.30%,56.00%,34.70%,7,67.00%,1.30%,1.30%,42,7.14%,92.86%,Gender agreement
+y,"8. Me encantan _____ clases con ___ Sr. Henriquez. (las, el)",71,14.10%,47.90%,38.00%,11,81.80%,18.20%,0.00%,33,6.06%,93.94%,Definite articles
+y,9. Está enamorada con él. (de),68,13.20%,48.50%,38.20%,8,75.00%,12.50%,12.50%,34,11.76%,88.24%,Prepositions
+y,10. Vi una girl que estaba walking her dog.,77,6.50%,66.20%,27.30%,4,75.00%,0.00%,25.00%,52,65.38%,34.62%,Code-switching
+y,"11. Muy chiquito, pero yo creo ha crecido como unas seis pulgadas.",59,8.50%,57.60%,33.90%,5,60.00%,20.00%,20.00%,34,14.71%,85.29%,Complementizer “que”
+y,12. I went to buy some food because no había en la casa.,73,6.80%,68.50%,24.70%,7,57.10%,14.30%,28.60%,48,68.75%,31.25%,Code-switching
+y,13. Ese libro Juan lo trajo ayer.,43,7.00%,46.50%,46.50%,3,66.70%,33.30%,0.00%,36,44.44%,55.55%,Order of constituents
+y,14. Se está liqueando el techo.,72,5.60%,69.40%,25.00%,5,40.00%,0.00%,60.00%,49,42.86%,57.14%,Loanword
+y,15. Mi prima prefiere dibujando con lápices de color.,75,8.00%,50.70%,41.30%,6,66.70%,16.70%,16.70%,38,2.63%,97.37%,Gerund vs. infinitive
+y,16. ¿Nunca has comido en ese restaurante? The food is delicious.,67,7.50%,68.70%,23.90%,5,80.00%,0.00%,20.00%,46,60.87%,39.13%,Code-switching
