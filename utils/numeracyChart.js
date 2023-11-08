@@ -13,6 +13,11 @@ import {
   leftArrow,
 } from "../main.js";
 
+const colors = {
+  "Low prestige": "#FFC107",
+  "High prestige": "#1E88E5",
+};
+
 // Helper functions to enable/disable numeracy chart statement buttons based on index
 function updateButtons(index, statements, chart) {
   const prevBtn = d3.select("#prev-statement-btn");
@@ -77,11 +82,6 @@ function singleNumeracyChart(statement, chart) {
   }
   row = row[0];
 
-  const colors = {
-    "Low prestige": "#FFC107",
-    "High prestige": "#1E88E5",
-  };
-
   let xPosition = 0;
   for (let key of ["Low prestige", "High prestige"]) {
     let value = parseInt(row[key]);
@@ -89,7 +89,8 @@ function singleNumeracyChart(statement, chart) {
     const category = chart
       .append("g")
       .attr("class", "numeracy-category")
-      .attr("width", rowSize * iconSize);
+      .attr("width", rowSize * iconSize)
+      .attr("transform", "translate(0, -30)");
 
     // add icons
     for (let i = 0; i < value; i++) {
@@ -125,9 +126,66 @@ function singleNumeracyChart(statement, chart) {
 let statementIndex;
 let statements;
 
+function makeLegend(chart) {
+  const spacing = 30;
+  const radius = 8;
+  const chartHeight = chart.attr("height");
+  const chartWidth = chart.attr("width");
+
+  //   group svg elements so they can be manipulated with CSS
+  chart
+    .append("g")
+    .attr("id", "legend")
+    .attr("transform", `translate(${chartWidth / 4},75)`);
+  const legend = d3.select("#legend");
+
+  //   text labels
+  legend
+    .append("text")
+    .text("Low prestige language")
+    .attr("class", "legend-label")
+    .attr("x", 2 * radius)
+    .attr("y", chartHeight - spacing)
+    .attr("fill", colors["Low prestige"]);
+
+  legend
+    .append("text")
+    .text("High prestige language")
+    .attr("class", "legend-label")
+    .attr("x", 2 * radius + 200)
+    .attr("y", chartHeight - spacing)
+    .attr("fill", colors["High prestige"]);
+
+  // color markers
+  legend
+    .append("circle")
+    .attr("class", "legend-dot")
+    .attr("x", 0)
+    .attr("y", chartHeight - spacing)
+    .attr("cx", 0)
+    .attr("cy", chartHeight - spacing - radius / 2)
+    .attr("r", radius)
+    .attr("fill", colors["Low prestige"]);
+
+  legend
+    .append("circle")
+    .attr("class", "legend-dot")
+    .attr("x", 200)
+    .attr("y", chartHeight - spacing)
+    .attr("cx", 200)
+    .attr("cy", chartHeight - spacing - radius / 2)
+    .attr("r", radius)
+    .attr("fill", colors["High prestige"]);
+}
+
 async function interactiveNumeracyChart(chart) {
   // updateTitle("Experiences of Linguistic Discrimination in Germany");
-
+  // const svgContainer = document.querySelector(".svg-container");
+  // console.log(svgContainer); TODO: REMOVE
+  // const subtitle = svgContainer.appendChild(document.createElement("p"));
+  // subtitle.classList.add("subtitle");
+  // subtitle.innerHTML =
+  makeLegend(chart);
   // implement interactive element (statement with forward and backward buttons)
   const buttonSize = 32;
   const padding = buttonSize / 4;
@@ -140,7 +198,7 @@ async function interactiveNumeracyChart(chart) {
   svg
     .append("g")
     .attr("id", "statement-selector")
-    .attr("transform", `translate(0, ${padding})`);
+    .attr("transform", `translate(0, ${chart.attr("height")})`);
 
   // statement
   const statementSelector = svg.select("#statement-selector");
@@ -172,20 +230,20 @@ async function interactiveNumeracyChart(chart) {
   // implement chart
   singleNumeracyChart(statements[statementIndex], chart);
 
-  chart
-    .append("text")
-    .text("low prestige language")
-    .attr("y", chartHeight)
-    .attr("x", chartWidth / 4)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px");
+  // chart
+  //   .append("text")
+  //   .text("low prestige language")
+  //   .attr("y", chartHeight)
+  //   .attr("x", chartWidth / 4)
+  //   .attr("text-anchor", "middle")
+  //   .style("font-size", "16px");
 
-  chart
-    .append("text")
-    .text("high prestige language")
-    .attr("y", chartHeight)
-    .attr("x", (3 * chartWidth) / 4)
-    .attr("text-anchor", "middle");
+  // chart
+  //   .append("text")
+  //   .text("high prestige language")
+  //   .attr("y", chartHeight)
+  //   .attr("x", (3 * chartWidth) / 4)
+  //   .attr("text-anchor", "middle");
 
   updateButtons(statementIndex, statements, chart);
 }

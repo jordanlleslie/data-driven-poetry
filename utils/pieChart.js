@@ -147,7 +147,7 @@ function makeTable(chart, data, correct_or_not) {
   const header = chart
     .append("g")
     .attr("id", "table-header")
-    .attr("transform", "translate(0,400)");
+    .attr("transform", "translate(0,450)");
 
   header.append("text").text("% Positive reason").attr("x", 0);
   header.append("text").text("% Negative reason").attr("x", 160);
@@ -174,7 +174,7 @@ function makeTable(chart, data, correct_or_not) {
   const table = chart
     .append("g")
     .attr("id", "table")
-    .attr("transform", "translate(0,400)");
+    .attr("transform", "translate(0,450)");
 
   const rows = table
     .selectAll()
@@ -229,8 +229,8 @@ function makeTable(chart, data, correct_or_not) {
 
 function pieChart(correction_reasons, chartWidth, chartHeight, chart) {
   // x position for charts
-  const x1 = chartWidth / 3;
-  const x2 = (2 * chartWidth) / 3;
+  const x1 = chartWidth / 4;
+  const x2 = (3 * chartWidth) / 4;
 
   const radius = Math.min(chartWidth, chartHeight) / 4;
   const pie = d3.pie().value((d) => d.percent);

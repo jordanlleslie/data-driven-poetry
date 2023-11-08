@@ -3,7 +3,7 @@ import pieChart from "./utils/pieChart.js";
 
 let chart, chartWidth, chartHeight;
 const svgWidth = 700;
-const svgHeight = 450;
+const svgHeight = 500;
 let svg = d3.select("#svg");
 
 let discrimination_experiences, correction_reasons;
@@ -174,32 +174,11 @@ function updateTitle(title) {
   }
 }
 
-// TEMPORARY mechanism to toggle between charts
-function selectChart() {
-  // update active chart selection buttons
-  let activeButton = d3.select(".active-button");
-  const buttons = d3.selectAll(".selection-btn");
-  buttons.on("click", (e) => {
-    // click on active selection should do nothing
-    if (e.target.classList.contains("active-button")) return;
-    e.target.classList.add("active-button");
-    activeButton.classed("active-button", false);
-    activeButton = d3.select(".active-button");
-  });
-}
-
-document.getElementById("select-pie").addEventListener("click", (e) => {
-  if (e.target.classList.contains("active-button")) return;
-  pieChartWrapper();
-});
-
-document.getElementById("select-numeracy").addEventListener("click", (e) => {
-  if (e.target.classList.contains("active-button")) return;
-  numeracyChartWrapper();
-});
-
 function numeracyChartWrapper() {
   initializeSVG();
+  updateTitle(
+    "Self-reported experiences of linguistic discrimination in Germany"
+  );
   numeracyChart(chart);
 }
 
@@ -214,7 +193,6 @@ function pieChartWrapper() {
 async function initialize() {
   await loadData();
   await loadImages();
-  selectChart();
   drawKeyframe(0);
 }
 
