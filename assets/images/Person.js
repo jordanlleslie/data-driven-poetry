@@ -1,7 +1,5 @@
 export default function Person(color, size, padding) {
-  const which = Math.random();
-  if (which > 0.5)
-    return `
+  return `
 <svg height="${size}px" width="${size}px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	 viewBox="0 0 24 24"  xml:space="preserve">
 
@@ -10,14 +8,4 @@ export default function Person(color, size, padding) {
 		<rect opacity="0" width="512" height="512"/>
 </g>
 </svg>}`;
-  else
-    return `
-<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="${size}px" height="${size}px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<g x="${padding}" y="${padding}">
-<path fill=${color} d="M12 1a2 2 0 1 1-2 2 2 2 0 0 1 2-2zm8.79 4.546L14.776 6H9.223l-6.012-.454a.72.72 0 0 0-.168 1.428l6.106.97a.473.473 0 0 1 .395.409L10 12 6.865 22.067a.68.68 0 0 0 .313.808l.071.04a.707.707 0 0 0 .994-.338L12 13.914l3.757 8.663a.707.707 0 0 0 .994.338l.07-.04a.68.68 0 0 0 .314-.808L14 12l.456-3.647a.473.473 0 0 1 .395-.409l6.106-.97a.72.72 0 0 0-.168-1.428z"/><path fill="none" d="M0 0h24v24H0z"/>
-	<rect opacity="0" width="512" height="512"/>
-</g>
-</svg>
-`;
 }

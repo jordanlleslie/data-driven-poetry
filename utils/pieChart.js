@@ -11,7 +11,13 @@ function addArcs(chart, arcs, chart_x, chartHeight, arcGenerator, data) {
     .attr("class", "pie-chart")
     .on("click", (e) => {
       const correct_or_not = e.target.__data__.data.make_correct;
-      makeTable(chart, data, correct_or_not);
+      makeTable(
+        chart,
+        data.sort((a, b) =>
+          a["linguistic_feature"] > b["linguistic_feature"] ? 1 : -1
+        ),
+        correct_or_not
+      );
       d3.selectAll(".pie-chart").classed("inactive-pie", true);
       group.classed("inactive-pie", false);
     })
@@ -182,7 +188,6 @@ function makeTable(chart, data, correct_or_not) {
     .enter()
     .append("g")
     .attr("class", "table-row");
-  console.log(filtered_data);
 
   rows
     .append("rect")
@@ -191,6 +196,7 @@ function makeTable(chart, data, correct_or_not) {
     .attr("width", (d) => parseInt(d["positive_reason"]) * 2)
     .attr("opacity", 0.4)
     .attr("fill", "#009E73");
+
   rows
     .append("text")
     .text((d) => d["positive_reason"])
@@ -221,10 +227,6 @@ function makeTable(chart, data, correct_or_not) {
     .attr("class", "table-text")
     .attr("y", (d, i) => i * 30 + 41)
     .attr("fill", "black");
-
-  rows.on("click", () => {
-    console.log("YAY");
-  });
 }
 
 function pieChart(correction_reasons, chartWidth, chartHeight, chart) {

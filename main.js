@@ -129,13 +129,15 @@ async function loadData() {
   correction_reasons = await d3.csv("./assets/data/correction_reasons.csv");
 }
 
-let rightArrow, leftArrow;
+let rightArrow, leftArrow, taiwanIcon;
 
 async function loadImages() {
   let data = await d3.text("./assets/images/Right.svg");
   rightArrow = btoa(data);
   data = await d3.text("./assets/images/Left.svg");
   leftArrow = btoa(data);
+  data = await d3.text("./assets/images/Taiwan.svg");
+  taiwanIcon = btoa(data);
 }
 
 function initializeSVG() {
@@ -185,15 +187,34 @@ function numeracyChartWrapper() {
 function pieChartWrapper() {
   initializeSVG();
   updateTitle(
-    "Teachers' reasons for correcting and not correcting students' speech"
+    "High school teachers' reasons for correcting and not correcting student speech"
   );
   pieChart(correction_reasons, chartWidth, chartHeight, chart);
+}
+
+function makeLandingPage() {
+  svg
+    .append("svg:image")
+    .attr("href", "data:image/svg+xml;base64," + taiwanIcon)
+    .attr("width", 100)
+    .attr("x", chartWidth / 2 - 50)
+    .attr("y", chartHeight / 2 + 50)
+    .attr("opacity", 0.6);
+
+  svg
+    .append("text")
+    .text("Click arrows to explore!")
+    .attr("x", chartWidth / 2)
+    .attr("y", chartHeight / 2 + 200)
+    .attr("text-anchor", "middle");
 }
 
 async function initialize() {
   await loadData();
   await loadImages();
+  initializeSVG();
   drawKeyframe(0);
+  makeLandingPage();
 }
 
 initialize();
