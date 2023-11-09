@@ -206,7 +206,8 @@ function makeLandingPage() {
     .text("Click arrows to explore!")
     .attr("x", chartWidth / 2)
     .attr("y", chartHeight / 2 + 200)
-    .attr("text-anchor", "middle");
+    .attr("text-anchor", "middle")
+    .style("font-size", 20);
 }
 
 async function initialize() {
