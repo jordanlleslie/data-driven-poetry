@@ -160,4 +160,5 @@ button {
 
 .close-btn {
   font-style: italic;
+  cursor: pointer;
 }

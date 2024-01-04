@@ -199,7 +199,7 @@ function makeTable(chart, data, correct_or_not) {
 
   rows
     .append("text")
-    .text((d) => d["positive_reason"])
+    .text((d) => parseFloat(d["positive_reason"]).toFixed(1) + "%")
     .attr("x", 2)
     .attr("class", "table-text")
     .attr("y", (d, i) => i * 30 + 41)
@@ -214,7 +214,7 @@ function makeTable(chart, data, correct_or_not) {
     .attr("opacity", 0.2);
   rows
     .append("text")
-    .text((d) => d["negative_reason"])
+    .text((d) => parseFloat(d["negative_reason"]).toFixed(1) + "%")
     .attr("x", 2 + 160)
     .attr("class", "table-text")
     .attr("y", (d, i) => i * 30 + 41)
