@@ -10,6 +10,13 @@ function addArcs(chart, arcs, chart_x, chartHeight, arcGenerator, data) {
     .append("g")
     .attr("class", "pie-chart")
     .on("click", (e) => {
+      // Prevent function call when active chart is clicked a 2nd time
+      if (
+        !e.target.parentNode.classList.contains("inactive-pie") &&
+        document.querySelectorAll(".inactive-pie").length > 0
+      ) {
+        return;
+      }
       const correct_or_not = e.target.__data__.data.make_correct;
       makeTable(
         chart,
